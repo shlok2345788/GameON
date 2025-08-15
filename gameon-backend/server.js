@@ -13,10 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/gameon', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => console.log('MongoDB connected'))
+mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
 // Product Schema
@@ -305,14 +302,24 @@ app.post('/api/send-email-otp', async (req, res) => {
   }
 });
 
+// Root API endpoint
+app.get('/api', (req, res) => {
+  res.json({ 
+    message: 'GameOn API is running!',
+    endpoints: [
+      '/api/shop',
+      '/api/products', 
+      '/api/product/:id',
+      '/api/accessories',
+      '/api/orders',
+      '/api/health'
+    ]
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'GameOn Backend is running!' });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 GameOn Backend Server running on port ${PORT}`);
-  console.log(`📁 Uploads directory: ${uploadsDir}`);
-  console.log(`🌐 API endpoints available at http://localhost:${PORT}/api/`);
-});
+module.exports = app
