@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "cd gameon-website && npm install",
+    "install": "node -e \"const fs=require('fs'),cp=require('child_process');if(!fs.existsSync('./gameon-website/node_modules')){process.chdir('gameon-website');cp.execSync('npm install',{stdio:'inherit'});}else{console.log('gameon-website dependencies already installed.')}\"",
     "build": "cd gameon-website && npm run build",
     "start": "node index.js",
     "dev": "nodemon index.js"
