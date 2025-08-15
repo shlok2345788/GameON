@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node deploy.js",
-    "install": "cd gameon-website && npm install"
+    "postinstall": "cd gameon-website && npm install",
+    "build": "cd gameon-website && npm run build",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
   "author": "Shlok Lokhande",
@@ -18,5 +20,8 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
